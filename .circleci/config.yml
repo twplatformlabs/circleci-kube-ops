@@ -1,0 +1,85 @@
+---
+version: 2.1
+
+orbs:
+  executor-tools: twdps/executor-tools@0.0.1
+
+on-push-main: &on-push-main
+  branches:
+    only: /main/
+  tags:
+    ignore: /.*/
+
+on-tag-main: &on-tag-main
+  branches:
+    ignore: /.*/
+  tags:
+    only: /.*/
+
+workflows:
+  version: 2
+  alpine-image-pipeline:
+    jobs:
+      - executor-tools/machine-executor-dev-release:
+          name: alpine-dev-build
+          context: twdps-core-labs-team
+          dockerfile: Dockerfile.alpine
+          image: twdps/circleci-kube-ops
+          tag: alpine-edge
+          docker-cve-scan: true
+          snyk-organization: twdps
+          cis-docker-image-scan: true
+          skip-base-image: true
+          bats-test: true
+          test-path: test/circleci_kube_ops_alpine.bats
+          container-name: circleci-kube-ops-alpine-edge
+          after-checkout:
+            - run:
+                name: inject environment variables
+                command: |
+                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  source $BASH_ENV
+          filters: *on-push-main
+
+      - executor-tools/publish:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          name: alpine-release
+          context: twdps-core-labs-team
+          pull-tag: alpine-edge
+          tag-annotation: alpine-
+          image: twdps/circleci-kube-ops
+          release-tag: alpine-stable
+          filters: *on-tag-main
+
+  slim-image-pipeline:
+    jobs:
+      - executor-tools/machine-executor-dev-release:
+          name: slim-dev-build
+          context: twdps-core-labs-team
+          dockerfile: Dockerfile.slim
+          image: twdps/circleci-kube-ops
+          tag: slim-edge
+          docker-cve-scan: true
+          snyk-organization: twdps
+          cis-docker-image-scan: true
+          skip-base-image: true
+          bats-test: true
+          test-path: test/circleci_kube_ops_slim.bats
+          container-name: circleci-kube-ops-slim-edge
+          after-checkout:
+            - run:
+                name: inject environment variables
+                command: |
+                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  source $BASH_ENV
+          filters: *on-push-main
+
+      - executor-tools/publish:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          name: slim-release
+          context: twdps-core-labs-team
+          pull-tag: slim-edge
+          tag-annotation: slim-
+          image: twdps/circleci-kube-ops
+          release-tag: slim-stable
+          filters: *on-tag-main
