@@ -7,7 +7,7 @@
 
 @test "wget version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge wget --version"
-  [[ "${output}" =~ "1.21.1" ]]
+  [[ "${output}" =~ "1.21" ]]
 }
 
 @test "docker health" {
