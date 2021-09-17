@@ -32,7 +32,7 @@
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge helm version --short=true"
-  [[ "${output}" =~ "3.6.3" ]]
+  [[ "${output}" =~ "3.7.0" ]]
 }
 
 @test "sonobuoy version" {

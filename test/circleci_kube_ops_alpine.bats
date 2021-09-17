@@ -2,7 +2,7 @@
 
 @test "curl version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge curl --version"
-  [[ "${output}" =~ "7.78.0" ]]
+  [[ "${output}" =~ "7.79.0" ]]
 }
 
 @test "wget version" {
@@ -32,7 +32,7 @@
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge helm version --short=true"
-  [[ "${output}" =~ "3.6.3" ]]
+  [[ "${output}" =~ "3.7.0" ]]
 }
 
 @test "sonobuoy version" {
