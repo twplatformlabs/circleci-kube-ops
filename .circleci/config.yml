@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.0.1
+  executor-tools: twdps/executor-tools@0.2.0
 
 on-push-main: &on-push-main
   branches:
@@ -59,7 +59,7 @@ workflows:
           dockerfile: Dockerfile.slim
           image: twdps/circleci-kube-ops
           tag: slim-edge
-          docker-cve-scan: false
+          docker-cve-scan: true
           snyk-organization: twdps
           cis-docker-image-scan: true
           skip-base-image: true
@@ -82,4 +82,11 @@ workflows:
           tag-annotation: slim-
           image: twdps/circleci-kube-ops
           release-tag: slim-stable
+          filters: *on-tag-main
+
+  generate-release-notes:
+    jobs:
+      - executor-tools/release:
+          context: twdps-di
+          shell: secrethub run -- /bin/sh -eo pipefail
           filters: *on-tag-main

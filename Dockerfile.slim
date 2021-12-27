@@ -1,12 +1,14 @@
-FROM twdps/circleci-base-image:slim-3.1.4
+FROM twdps/circleci-base-image:slim-3.1.5
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV KUBECTL_VERSION=1.22.4
-ENV ISTIO_VERSION=1.12.0
-ENV HELM_VERSION=3.7.1
+ENV KUBECTL_VERSION=1.23.1
+ENV HELM_VERSION=3.7.2
 ENV SONOBUOY_VERSION=0.55.1
 ENV BATS_VERSION=1.5.0
+ENV AWSPEC_VERSION=1.25.1
+ENV INSPEC_VERSION=4.52.9
+ENV ARGOCD_VERSION=2.2.1
 ENV DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
@@ -17,12 +19,10 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
                  curl=7.79.1-2  \
                  wget=1.21.2-2+b1 \
                  jq=1.6-2.1 \
-                 gnupg=2.2.27-2 \
-                 apt-transport-https=2.3.13 \
-                 lsb-release=11.1.0 \
                  python3-dev=3.9.8-1 \
                  python3-pip \
                  python3-venv=3.9.8-1 \
+                 ruby-full=1:2.7.6 \
                  gcc=4:11.2.0-2 \
                  g++=4:11.2.0-2 \
                  make=4.3-4.1 && \
@@ -30,20 +30,17 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
-    pip install --no-cache-dir setuptools==59.5.0 && \
     pip install --no-cache-dir \
-        awscli==1.22.21 && \
-    sudo bash -c "curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg" && \
-    sudo bash -c "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bullseye stable\" | tee /etc/apt/sources.list.d/docker.list > /dev/null" && \
-    sudo apt-get update && sudo apt-get install --no-install-recommends -y \
-                 docker-ce=5:20.10.11~3-0~debian-bullseye \
-                 docker-ce-cli=5:20.10.11~3-0~debian-bullseye \
-                 containerd.io=1.4.12-1 && \
+        awscli==1.22.24 && \
     sudo bash -c "curl -sL https://deb.nodesource.com/setup_14.x | bash - " && \
     sudo apt-get install --no-install-recommends -y \
                  nodejs=14.18.2-deb-1nodesource1 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
+    sudo gem install  --no-document \
+             awspec:${AWSPEC_VERSION} \
+             inspec-bin:${INSPEC_VERSION} \
+             json:2.6.1 && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
@@ -58,6 +55,11 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -L https://istio.io/downloadIstio  | ISTIO_VERSION="${ISTIO_VERSION}" sh - && \
     sudo mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/local/bin/istioctl && \
-    sudo rm -rf "istio-${ISTIO_VERSION}"
+    sudo rm -rf "istio-${ISTIO_VERSION}" && \
+    curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64 && \
+    chmod +x argocd && \
+    sudo mv ./argocd /usr/local/bin/argocd
+
+COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
