@@ -16,7 +16,7 @@ SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 # sudo since twdps circleci base images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
-                 curl=7.79.1-2  \
+                 curl=7.80.0-3  \
                  wget=1.21.2-2+b1 \
                  jq=1.6-2.1 \
                  python3-dev=3.9.8-1 \
