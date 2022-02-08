@@ -1,14 +1,14 @@
-FROM twdps/circleci-base-image:slim-3.1.5
+FROM twdps/circleci-base-image:slim-3.2.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
 ENV KUBECTL_VERSION=1.23.1
-ENV HELM_VERSION=3.7.2
-ENV SONOBUOY_VERSION=0.55.1
+ENV HELM_VERSION=3.8.0
+ENV SONOBUOY_VERSION=0.56.0
 ENV BATS_VERSION=1.5.0
-ENV AWSPEC_VERSION=1.25.1
+ENV AWSPEC_VERSION=1.25.2
 ENV INSPEC_VERSION=4.52.9
-ENV ARGOCD_VERSION=2.2.1
+ENV ARGOCD_VERSION=2.2.5
 ENV DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
@@ -16,7 +16,7 @@ SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 # sudo since twdps circleci base images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
-                 curl=7.80.0-3  \
+                 curl=7.81.0-1  \
                  wget=1.21.2-2+b1 \
                  jq=1.6-2.1 \
                  python3-dev=3.9.8-1 \
@@ -31,10 +31,10 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
     pip install --no-cache-dir \
-        awscli==1.22.24 && \
+        awscli==1.22.50 && \
     sudo bash -c "curl -sL https://deb.nodesource.com/setup_14.x | bash - " && \
     sudo apt-get install --no-install-recommends -y \
-                 nodejs=14.18.2-deb-1nodesource1 && \
+                 nodejs=14.19.0-deb-1nodesource1 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
