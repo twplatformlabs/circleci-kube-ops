@@ -22,22 +22,22 @@
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge helm version --short=true"
-  [[ "${output}" =~ "3.7.2" ]]
+  [[ "${output}" =~ "3.8.0" ]]
 }
 
 @test "sonobuoy version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.55.1" ]]
+  [[ "${output}" =~ "0.56.0" ]]
 }
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge argocd version --short=true"
-  [[ "${output}" =~ "2.2.1" ]]
+  [[ "${output}" =~ "2.2.5" ]]
 }
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge awspec --version"
-  [[ "${output}" =~ "1.25.1" ]]
+  [[ "${output}" =~ "1.25.2" ]]
 }
 
 @test "inspec version" {
