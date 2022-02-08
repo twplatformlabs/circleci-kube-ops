@@ -60,6 +60,7 @@ workflows:
           image: twdps/circleci-kube-ops
           tag: slim-edge
           docker-cve-scan: true
+          severity-threshold: medium
           snyk-organization: twdps
           cis-docker-image-scan: true
           skip-base-image: true
