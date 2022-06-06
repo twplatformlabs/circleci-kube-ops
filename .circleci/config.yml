@@ -2,7 +2,17 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.2.0
+  executor-tools: twdps/executor-tools@0.5.0
+
+parameters:
+  context:
+    description: circleci context for all jobs
+    type: string
+    default: twdps-core-labs-team
+  shell-options:
+    description: shell options for all jobs
+    type: string
+    default: op run --env-file op.env -- /bin/bash -eo pipefail
 
 on-push-main: &on-push-main
   branches:
@@ -22,7 +32,7 @@ workflows:
     jobs:
       - executor-tools/machine-executor-dev-release:
           name: alpine-dev-build
-          context: twdps-core-labs-team
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-kube-ops
           tag: alpine-edge
@@ -37,14 +47,14 @@ workflows:
             - run:
                 name: inject environment variables
                 command: |
-                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  op inject -i op.env -o $BASH_ENV
                   source $BASH_ENV
           filters: *on-push-main
 
       - executor-tools/publish:
-          shell: secrethub run -- /bin/sh -eo pipefail
+          shell: << pipeline.parameters.shell-options >>
           name: alpine-release
-          context: twdps-core-labs-team
+          context: << pipeline.parameters.context >>
           pull-tag: alpine-edge
           tag-annotation: alpine-
           image: twdps/circleci-kube-ops
@@ -55,7 +65,7 @@ workflows:
     jobs:
       - executor-tools/machine-executor-dev-release:
           name: slim-dev-build
-          context: twdps-core-labs-team
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.slim
           image: twdps/circleci-kube-ops
           tag: slim-edge
@@ -71,14 +81,14 @@ workflows:
             - run:
                 name: inject environment variables
                 command: |
-                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  op inject -i op.env -o $BASH_ENV
                   source $BASH_ENV
           filters: *on-push-main
 
       - executor-tools/publish:
-          shell: secrethub run -- /bin/sh -eo pipefail
+          shell:  << pipeline.parameters.shell-options >>
           name: slim-release
-          context: twdps-core-labs-team
+          context: << pipeline.parameters.context >>
           pull-tag: slim-edge
           tag-annotation: slim-
           image: twdps/circleci-kube-ops
@@ -88,6 +98,6 @@ workflows:
   generate-release-notes:
     jobs:
       - executor-tools/release:
-          context: twdps-di
-          shell: secrethub run -- /bin/sh -eo pipefail
+          context: << pipeline.parameters.context >>
+          shell:  << pipeline.parameters.shell-options >>
           filters: *on-tag-main
