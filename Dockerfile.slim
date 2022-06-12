@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:slim-3.8.0
+FROM twdps/circleci-base-image:slim-3.9.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
@@ -29,6 +29,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
     pip install --no-cache-dir \
+        datadog==0.44.0 \
         awscli==1.22.50 && \
     sudo bash -c "curl -sL https://deb.nodesource.com/setup_16.x | bash - " && \
     sudo apt-get install --no-install-recommends -y \
