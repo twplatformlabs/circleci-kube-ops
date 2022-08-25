@@ -14,11 +14,12 @@ Common tools and packages used in pipelines managing kubernetes. Works in conjun
 
 Packages included on kube-ops executor, but can override version with orb commands:   
 - kubectl
+- kind
 - helm
-- bats
+- npm: bats
 - sonobuoy
-- inspec
-- awspec
+- gem: inspec
+- gem: awspec
 - argocd
 
 Packages that must be specified using the orb-kube-ops/packages command (not on executor):  
@@ -28,13 +29,15 @@ Capabilities provided by orb using remote image at runtime:
 - kube-bench
 
 Packages available on the executor, can not be overridden using orb: 
+- docker # for using kind in operator-sdk build pipelines
 - curl
 - wget
 - python3
 - ruby 
 - nodejs
-- awscli
-- jq
+- npm
+- pip: awscli
+- pip: jq
 - gem: json
 
 See release notes and Dockerfile for details and version information.  

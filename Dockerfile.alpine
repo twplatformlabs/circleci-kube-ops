@@ -1,14 +1,15 @@
-FROM twdps/circleci-base-image:alpine-3.9.0
+FROM twdps/circleci-base-image:alpine-3.10.0
 
 LABEL maintainers=<nic.cheneweth@thoughtworks.com>
 
-ENV KUBECTL_VERSION=1.23.5
-ENV HELM_VERSION=3.9.0
-ENV SONOBUOY_VERSION=0.56.6
+ENV KUBECTL_VERSION=1.24.3
+ENV HELM_VERSION=3.9.3
+ENV SONOBUOY_VERSION=0.56.10
 ENV BATS_VERSION=1.7.0
-ENV AWSPEC_VERSION=1.26.0
-ENV INSPEC_VERSION=5.17.4
-ENV ARGOCD_VERSION=2.3.4
+ENV AWSPEC_VERSION=1.28.0
+ENV INSPEC_VERSION=5.18.14
+ENV ARGOCD_VERSION=2.4.10
+ENV KIND_VERSION=0.14.0
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -16,17 +17,18 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
     sudo apk add --no-cache \
-             nodejs==16.15.0-r1 \
+             docker==20.10.16-r2 \
+             nodejs==16.16.0-r0 \
              npm==8.10.0-r0 \
-             python3==3.10.4-r0 \
+             python3==3.10.5-r0 \
              ruby==3.1.2-r0 \
              ruby-webrick==1.7.0-r1 \
-             ruby-bundler==2.3.14-r0 \
+             ruby-bundler==2.3.14-r1 \
              jq==1.6-r1 && \
     sudo apk add --no-cache --virtual build-dependencies \
-             build-base==0.5-r2 \
+             build-base==0.5-r3 \
              ruby-dev==3.1.2-r0 \
-             python3-dev==3.10.4-r0 \
+             python3-dev==3.10.5-r0 \
              libffi-dev==3.4.2-r1 \
              g++==11.2.1_git20220219-r2 \
              gcc==11.2.1_git20220219-r2 \
@@ -39,14 +41,17 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
              json:2.6.1 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==22.1.2 && \
+    sudo pip3 install --upgrade pip==22.2.2 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install \
          datadog==0.44.0 \
-         awscli==1.25.3 && \
+         awscli==1.25.57 && \
+    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
+    sudo chmod +x ./kind && \
+    sudo mv ./kind /usr/local/bin/kind && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \

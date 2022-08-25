@@ -27,6 +27,7 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
+
 workflows:
   version: 2
   alpine-image-pipeline:
