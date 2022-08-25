@@ -33,10 +33,10 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     pip install --no-cache-dir \
         datadog==0.44.0 \
         awscli==1.25.57 && \
-    sudo bash -c "curl -sL https://deb.nodesource.com/setup_16.x | bash - " && \
+    sudo bash -c "curl -sL https://deb.nodesource.com/setup_18.x | bash - " && \
     sudo apt-get install --no-install-recommends -y \
                  nodejs=18.7.0+dfsg-1 \
-                 npm=8.17.0~ds1-1 && \
+                 npm=8.18.0~ds1-1 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
