@@ -17,7 +17,7 @@
 
 @test "sonobuoy version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.56.6" ]]
+  [[ "${output}" =~ "0.56.10" ]]
 }
 
 @test "argocd version" {
