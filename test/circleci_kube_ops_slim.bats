@@ -7,7 +7,7 @@
 
 @test "kubectl version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge kubectl version --short=true --client=true"
-  [[ "${output}" =~ "1.25.3" ]]
+  [[ "${output}" =~ "1.25.4" ]]
 }
 
 @test "helm version" {
