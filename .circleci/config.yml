@@ -54,6 +54,7 @@ workflows:
           shell: << pipeline.parameters.shell-options >>
           name: alpine-release
           context: << pipeline.parameters.context >>
+          executor-image-name: twdps/circleci-executor-builder:alpine-3.0.0
           pull-tag: alpine-edge
           tag-annotation: alpine-
           image: twdps/circleci-kube-ops
