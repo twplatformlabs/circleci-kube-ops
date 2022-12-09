@@ -4,13 +4,13 @@
     <br />
 		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/dps_lab_title.png?sanitize=true" width=350/>
 	</p>
-  <h3>DPS Convenience Images</h3>
+  <h3>EMPC Convenience Images</h3>
   <h1>twdps/circleci-kube-ops</h1>
   <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/circleci-kube-ops"><img src="https://circleci.com/gh/ThoughtWorks-DPS/circleci-kube-ops.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/circleci-kube-ops"></a>
 </div>
 <br />
 
-Common tools and packages used in pipelines managing kubernetes. Works in conjunction with the twdps orb-kube-ops.  
+Common tools and packages used in pipelines managing kubernetes. Works in conjunction with the [twdps/kube-ops](https://github.com/ThoughtWorks-DPS/orb-kube-ops) orb.  
 
 Packages included on kube-ops executor, but can override version with orb commands:   
 - kubectl
@@ -22,7 +22,7 @@ Packages included on kube-ops executor, but can override version with orb comman
 - gem: awspec
 - argocd
 
-Packages that must be specified using the orb-kube-ops/packages command (not on executor):  
+Packages that must be specified using the kube-ops/packages command (not on executor):  
 - istioctl
 
 Capabilities provided by orb using remote image at runtime:  

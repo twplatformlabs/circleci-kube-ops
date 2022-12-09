@@ -2,7 +2,7 @@
 
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge bats -v"
-  [[ "${output}" =~ "1.8.0" ]]
+  [[ "${output}" =~ "1.8.2" ]]
 }
 
 @test "kubectl version" {
@@ -12,22 +12,22 @@
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge helm version --short=true"
-  [[ "${output}" =~ "3.10.1" ]]
+  [[ "${output}" =~ "3.10.2" ]]
 }
 
 @test "sonobuoy version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.56.10" ]]
+  [[ "${output}" =~ "0.56.12" ]]
 }
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge argocd version --short=true"
-  [[ "${output}" =~ "2.4.15" ]]
+  [[ "${output}" =~ "2.5.4" ]]
 }
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge awspec --version"
-  [[ "${output}" =~ "1.28.1" ]]
+  [[ "${output}" =~ "1.28.2" ]]
 }
 
 @test "inspec version" {
@@ -42,5 +42,5 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge kind version"
-  [[ "${output}" =~ "0.16.0" ]]
+  [[ "${output}" =~ "0.17.0" ]]
 }
