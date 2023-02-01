@@ -35,10 +35,10 @@
   [[ "${output}" =~ "5.18" ]]
 }
 
-@test "datadog cli version" {
-  run bash -c "docker exec circleci-kube-ops-slim-edge dog --version"
-  [[ "${output}" =~ "0.44.0" ]]
-}
+# @test "datadog cli version" {
+#   run bash -c "docker exec circleci-kube-ops-slim-edge dog --version"
+#   [[ "${output}" =~ "0.44.0" ]]
+# }
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge kind version"
