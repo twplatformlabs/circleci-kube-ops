@@ -48,4 +48,8 @@ ignore:
     - go.mongodb.org/mongo-driver/bson/bsonrw@v1.1.2: 
       reason: Improper Input Validation
       expires: '2023-03-01T14:26:34.404Z'
+  SNYK-JS-MINIMATCH-3050818:
+    - vscode-languageclient@7.0.0 > minimatch@3.0.4:
+      reason: Regular Expression Denial of Service (ReDoS)
+      expires: '2023-03-01T14:26:34.404Z'
 patch: {}

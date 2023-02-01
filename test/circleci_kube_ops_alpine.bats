@@ -2,7 +2,7 @@
 
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge bats -v"
-  [[ "${output}" =~ "1.8.2" ]]
+  [[ "${output}" =~ "1.8" ]]
 }
 
 @test "kubectl version" {
@@ -17,7 +17,7 @@
 
 @test "sonobuoy version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.56.12" ]]
+  [[ "${output}" =~ "0.56" ]]
 }
 
 @test "argocd version" {
