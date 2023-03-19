@@ -2,7 +2,7 @@
 
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge bats -v"
-  [[ "${output}" =~ "1.8" ]]
+  [[ "${output}" =~ "1.9" ]]
 }
 
 @test "kubectl version" {
@@ -22,22 +22,17 @@
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge argocd version --short=true"
-  [[ "${output}" =~ "2.5" ]]
+  [[ "${output}" =~ "2.6" ]]
 }
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge awspec --version"
-  [[ "${output}" =~ "1.28" ]]
+  [[ "${output}" =~ "1.29" ]]
 }
 
 @test "inspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge inspec --version"
-  [[ "${output}" =~ "5.18" ]]
-}
-
-@test "datadog cli version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge dog --version"
-  [[ "${output}" =~ "0.44.0" ]]
+  [[ "${output}" =~ "5.21" ]]
 }
 
 @test "kind version" {

@@ -1,14 +1,19 @@
-FROM twdps/circleci-base-image:alpine-4.3.0
+FROM ghcr.io/thoughtworks-dps/twdps/circleci-base-image:alpine-5.0.0
 
-LABEL maintainers=<nic.cheneweth@thoughtworks.com>
+LABEL org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
+      org.opencontainers.image.description="Alpine-based CircleCI executor image" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
+      org.opencontainers.image.title="circleci-kube-ops" \
+      org.opencontainers.image.vendor="ThoughtWorks, Inc."
 
-ENV KUBECTL_VERSION=1.26.1
-ENV HELM_VERSION=3.11.0
-ENV SONOBUOY_VERSION=0.56.15
-ENV BATS_VERSION=1.8.2
-ENV AWSPEC_VERSION=1.28.2
-ENV INSPEC_VERSION=5.18.14
-ENV ARGOCD_VERSION=2.5.9
+ENV KUBECTL_VERSION=1.26.2
+ENV HELM_VERSION=3.11.2
+ENV SONOBUOY_VERSION=0.56.16
+ENV BATS_VERSION=1.9.0
+ENV AWSPEC_VERSION=1.29.0
+ENV INSPEC_VERSION=5.21.29
+ENV ARGOCD_VERSION=2.6.6
 ENV KIND_VERSION=0.17.0
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
@@ -17,10 +22,10 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
     sudo apk add --no-cache \
-             docker==20.10.21-r2 \
-             nodejs==18.12.1-r0 \
+             docker==20.10.21-r3 \
+             nodejs==18.14.2-r0 \
              npm==9.1.2-r0 \
-             python3==3.10.9-r1 \
+             python3==3.10.10-r0 \
              ruby==3.1.3-r0 \
              ruby-webrick==1.7.0-r1 \
              ruby-bundler==2.3.26-r0 \
@@ -28,7 +33,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r3 \
              ruby-dev==3.1.3-r0 \
-             python3-dev==3.10.9-r1 \
+             python3-dev==3.10.10-r0 \
              libffi-dev==3.4.4-r0 \
              g++==12.2.1_git20220924-r4 \
              gcc==12.2.1_git20220924-r4 \
@@ -41,12 +46,11 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
              json:2.6.1 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==23.0 && \
+    sudo pip3 install --upgrade pip==23.0.1 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \
-         datadog==0.44.0 \
-         awscli==1.27.61 && \
+         awscli==1.27.94 && \
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \
