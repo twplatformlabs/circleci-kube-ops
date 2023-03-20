@@ -101,5 +101,5 @@ ignore:
     - vscode-languageclient@7.0.0 > minimatch@3.0.4:
       reason: Denial of Service (DoS)
       expires: '2023-06-01T14:26:34.404Z'
-  SNYK-GOLANG-GOLANGORGXNETHTTP2-3323837:
+
 patch: {}
