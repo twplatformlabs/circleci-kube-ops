@@ -3,53 +3,103 @@ version: v1.22.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   # teller cve - snyk is ignoring the 'slip base image' directive with regard to teller, for some reason
-  SNYK-GOLANG-GOLANGORGXNETHTTP2-3160322:
-    - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
+  SNYK-DEBIANUNSTABLE-NODEJS-3330758:
+    - meta-common-packages@meta > nodejs@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > nodejs/libnode108@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - npm@9.2.0~ds1-1 > node-gyp@9.3.0-2 > nodejs/libnode-dev@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-NODEJS-3330752:
+    - meta-common-packages@meta > nodejs@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > nodejs/libnode108@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - npm@9.2.0~ds1-1 > node-gyp@9.3.0-2 > nodejs/libnode-dev@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-NODEJS-3330761:
+    - meta-common-packages@meta > nodejs@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > nodejs/libnode108@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+    - npm@9.2.0~ds1-1 > node-gyp@9.3.0-2 > nodejs/libnode-dev@18.13.0+dfsg1-1:
+      reason: Untrusted Search Path
+      expires: '2023-06-01T14:26:34.404Z'
+  SNYK-GOLANG-GOLANGORGXSYSUNIX-3310442:
+    - golang.org/x/sys/unix@v0.0.0-20220722155257-8c9f86f7a55f:
+      reason: Incorrect Privilege Assignment
+      expires: '2023-06-01T14:26:34.404Z'
+  SNYK-GOLANG-GOLANGORGXNETHTTP2HPACK-3358253:
+    - golang.org/x/net/http2/hpack@v0.4.0:
       reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-    - golang.org/x/net/http2@v0.3.1-0.20221206200815-1e63c2f08a10: 
+      expires: '2023-06-01T14:26:34.404Z'
+  SNYK-GOLANG-GOLANGORGXNETHTTP2-3323837:
+    - golang.org/x/net/http2/hpack@v0.4.0:
       reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-    - golang.org/x/net/http2@v0.0.0-20220621193019-9d032be2e588:
+      expires: '2023-06-01T14:26:34.404Z'
+    - golang.org/x/net/http2/hpack@v0.5.0:
       reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOLANGORGXCRYPTOSSH-2429769:
-    - golang.org/x/crypto/ssh@v0.0.0-20211108221036-ceb1ce70b4fa:
+      expires: '2023-06-01T14:26:34.404Z'
+    - golang.org/x/net/http2/hpack@v0.5.0:
       reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOPKGINYAMLV3-2841557:
-    - gopkg.in/yaml.v3@v3.0.0-20210107192922-496545a6307b:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOPKGINYAMLV3-2952714:
-    - gopkg.in/yaml.v3@v3.0.0-20210107192922-496545a6307b:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOLANGORGXNETHTTP2-2313688:
-    - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOLANGORGXNETHTTP2-3028257:
-    - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-    - golang.org/x/net/http2@v0.0.0-20220621193019-9d032be2e588:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOLANGORGXCRYPTOSSH-3026972:
-    - golang.org/x/crypto/ssh@v0.0.0-20211108221036-ceb1ce70b4fa:
-      reason: Denial of Service (DoS)
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-K8SIOAPIMACHINERYPKGUTILPROXY-590104:
-    - k8s.io/apimachinery/pkg/util/proxy@v0.0.0:
-      reason: Privilege Escalation
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-GOLANG-GOMONGODBORGMONGODRIVERBSONBSONRW-1303393:
-    - go.mongodb.org/mongo-driver/bson/bsonrw@v1.1.2: 
-      reason: Improper Input Validation
-      expires: '2023-03-01T14:26:34.404Z'
-  SNYK-JS-MINIMATCH-3050818:
-    - vscode-languageclient@7.0.0 > minimatch@3.0.4:
-      reason: Regular Expression Denial of Service (ReDoS)
-      expires: '2023-03-01T14:26:34.404Z'
+      expires: '2023-06-01T14:26:34.404Z'
+
+
+  # SNYK-GOLANG-GOLANGORGXNETHTTP2-3160322:
+  #   - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  #   - golang.org/x/net/http2@v0.3.1-0.20221206200815-1e63c2f08a10: 
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  #   - golang.org/x/net/http2@v0.0.0-20220621193019-9d032be2e588:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOLANGORGXCRYPTOSSH-2429769:
+  #   - golang.org/x/crypto/ssh@v0.0.0-20211108221036-ceb1ce70b4fa:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOPKGINYAMLV3-2841557:
+  #   - gopkg.in/yaml.v3@v3.0.0-20210107192922-496545a6307b:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOPKGINYAMLV3-2952714:
+  #   - gopkg.in/yaml.v3@v3.0.0-20210107192922-496545a6307b:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOLANGORGXNETHTTP2-2313688:
+  #   - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOLANGORGXNETHTTP2-3028257:
+  #   - golang.org/x/net/http2@v0.0.0-20211112202133-69e39bad7dc2:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  #   - golang.org/x/net/http2@v0.0.0-20220621193019-9d032be2e588:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOLANGORGXCRYPTOSSH-3026972:
+  #   - golang.org/x/crypto/ssh@v0.0.0-20211108221036-ceb1ce70b4fa:
+  #     reason: Denial of Service (DoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-K8SIOAPIMACHINERYPKGUTILPROXY-590104:
+  #   - k8s.io/apimachinery/pkg/util/proxy@v0.0.0:
+  #     reason: Privilege Escalation
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-GOLANG-GOMONGODBORGMONGODRIVERBSONBSONRW-1303393:
+  #   - go.mongodb.org/mongo-driver/bson/bsonrw@v1.1.2: 
+  #     reason: Improper Input Validation
+  #     expires: '2023-03-01T14:26:34.404Z'
+  # SNYK-JS-MINIMATCH-3050818:
+  #   - vscode-languageclient@7.0.0 > minimatch@3.0.4:
+  #     reason: Regular Expression Denial of Service (ReDoS)
+  #     expires: '2023-03-01T14:26:34.404Z'
 patch: {}
