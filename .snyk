@@ -101,5 +101,14 @@ ignore:
     - vscode-languageclient@7.0.0 > minimatch@3.0.4:
       reason: Denial of Service (DoS)
       expires: '2023-06-01T14:26:34.404Z'
-
+  SNYK-DEBIANUNSTABLE-OPENSSL-5291772:
+    - ca-certificates@20230311 > openssl@3.0.8-1:
+      reason: Improper Certificate Validation
+      expires: '2023-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > openssl/libssl3@3.0.8-1:
+      reason: Improper Certificate Validation
+      expires: '2023-06-01T14:26:34.404Z'
+    - npm@9.2.0~ds1-1 > node-gyp@9.3.0-2 > nodejs/libnode-dev@18.13.0+dfsg1-1 > openssl/libssl-dev@3.0.8-1:
+      reason: Improper Certificate Validation
+      expires: '2023-06-01T14:26:34.404Z'
 patch: {}
