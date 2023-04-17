@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@1.1.0
+  executor-tools: twdps/executor-tools@1.2.0
   op: twdps/onepassword@1.0.0
 
 parameters:
@@ -17,7 +17,7 @@ parameters:
   registry:
     description: publish to this registry
     type: string
-    default: ghcr.io/thoughtworks-dps
+    default: docker.io
 
 on-push-main: &on-push-main
   branches:
@@ -53,6 +53,12 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -66,6 +72,7 @@ workflows:
           image: twdps/circleci-kube-ops
           release-tag: alpine-stable
           sign-image: true
+          sbom: true
           after-publish:
             - run:
                 name: setup cosign keys
@@ -94,6 +101,12 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -106,6 +119,7 @@ workflows:
           image: twdps/circleci-kube-ops
           release-tag: slim-stable
           sign-image: true
+          sbom: true
           after-publish:
             - run:
                 name: setup cosign keys
@@ -119,4 +133,5 @@ workflows:
       - executor-tools/release:
           context: << pipeline.parameters.context >>
           shell:  << pipeline.parameters.shell-options >>
+          on-tag: true
           filters: *on-tag-main

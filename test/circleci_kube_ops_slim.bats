@@ -39,3 +39,8 @@
   run bash -c "docker exec circleci-kube-ops-slim-edge kind version"
   [[ "${output}" =~ "0.17.0" ]]
 }
+
+@test "checkov version" {
+  run bash -c "docker exec circleci-infra-aws-slim-edge checkov -v"
+  [[ "${output}" =~ "2.3.165" ]]
+}
