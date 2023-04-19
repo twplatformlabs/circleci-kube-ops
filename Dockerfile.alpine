@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-6.0.1
+FROM twdps/circleci-base-image:alpine-6.1.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -32,7 +32,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
              docker==20.10.24-r1 \
              nodejs==18.14.2-r0 \
              npm==9.1.2-r0 \
-             python3==3.11.3-r4 \
+             python3==3.11.3-r10 \
              ruby==3.1.4-r0 \
              ruby-webrick==1.7.0-r1 \
              ruby-bundler==2.3.26-r0 \
@@ -40,7 +40,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r3 \
              ruby-dev==3.1.4-r0 \
-             python3-dev==3.11.3-r4 \
+             python3-dev==3.11.3-r10 \
              libffi-dev==3.4.4-r0 \
              g++==12.2.1_git20220924-r4 \
              gcc==12.2.1_git20220924-r4 \
