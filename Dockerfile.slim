@@ -78,7 +78,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \
-    sudo bash -c "curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=${FLUX_VERSION} bash" && \
+    sudo bash -c "curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=${FLUX_VERSION} bash"
 
 COPY inspec /etc/chef/accepted_licenses/inspec
 
