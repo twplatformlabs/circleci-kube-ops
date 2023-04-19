@@ -41,8 +41,8 @@
 }
 
 @test "flux version" {
-  run bash -c "docker exec circleci-kube-ops-slim-edge flux version"
-  [[ "${output}" =~ "1.25.4" ]]
+  run bash -c "docker exec circleci-kube-ops-slim-edge flux --version"
+  [[ "${output}" =~ "2.0.0" ]]
 }
 
 @test "checkov version" {
