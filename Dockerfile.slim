@@ -19,7 +19,7 @@ ENV BATS_VERSION=1.9.0
 ENV AWSPEC_VERSION=1.29.2
 ENV INSPEC_VERSION=5.21.29
 ENV ARGOCD_VERSION=2.6.7
-ENV FLUX_VERSION=1.25.4
+ENV FLUX_VERSION=2.0.0-rc.1
 ENV KIND_VERSION=0.18.0
 ENV CHECKOV_VERSION=2.3.165
 ENV DEBIAN_FRONTEND=noninteractive
@@ -77,8 +77,10 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
     chmod +x argocd && \
-    sudo mv ./argocd /usr/local/bin/argocd
+    sudo mv ./argocd /usr/local/bin/argocd && \
+    sudo bash -c "curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=${FLUX_VERSION} bash" && \
 
 COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
+
