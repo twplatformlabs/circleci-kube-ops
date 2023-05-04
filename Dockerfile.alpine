@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-6.1.0
+FROM twdps/circleci-base-image:alpine-6.5.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -13,7 +13,7 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
 
 ENV KUBECTL_VERSION=1.26.4
 ENV HELM_VERSION=3.11.3
-ENV AWSCLI_VERSION=1.27.114
+ENV AWSCLI_VERSION=1.27.126
 ENV SONOBUOY_VERSION=0.56.16
 ENV BATS_VERSION=1.9.0
 ENV AWSPEC_VERSION=1.29.2
@@ -21,7 +21,7 @@ ENV INSPEC_VERSION=5.21.29
 ENV ARGOCD_VERSION=2.6.7
 ENV FLUX_VERSION=2.0.0-rc.1
 ENV KIND_VERSION=0.18.0
-ENV CHECKOV_VERSION=2.3.165
+ENV CHECKOV_VERSION=2.3.199
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -29,7 +29,7 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
     sudo apk add --no-cache \
-             docker==20.10.24-r1 \
+             docker==20.10.24-r2 \
              nodejs==18.14.2-r0 \
              npm==9.1.2-r0 \
              python3==3.11.3-r10 \

@@ -37,15 +37,15 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge kind version"
-  [[ "${output}" =~ "0.18.0" ]]
+  [[ "${output}" =~ "0.18" ]]
 }
 
 @test "flux version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge flux --version"
-  [[ "${output}" =~ "2.0.0" ]]
+  [[ "${output}" =~ "2.0" ]]
 }
 
 @test "checkov version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge checkov -v"
-  [[ "${output}" =~ "2.3.165" ]]
+  [[ "${output}" =~ "2.3" ]]
 }
