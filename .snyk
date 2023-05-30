@@ -2,6 +2,22 @@
 version: v1.22.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-DEBIAN12-NODEJS-3330754:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-NODEJS-3330756:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-NODEJS-3330763:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-NODEWEBPACK-3358831:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Runs on ephemeral pipeline executor
   # teller cve - snyk is ignoring the 'slip base image' directive with regard to teller, for some reason
   SNYK-DEBIANUNSTABLE-NODEJS-3330758:
     - '*':
