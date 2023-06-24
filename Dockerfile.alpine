@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-6.6.2
+FROM twdps/circleci-base-image:alpine-6.7.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -11,17 +11,17 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.created="CREATED" \
       org.opencontainers.image.version="VERSION"
 
-ENV KUBECTL_VERSION=1.26.4
-ENV HELM_VERSION=3.11.3
-ENV AWSCLI_VERSION=1.27.126
+ENV KUBECTL_VERSION=1.27.3
+ENV HELM_VERSION=3.12.1
+ENV AWSCLI_VERSION=1.27.160
 ENV SONOBUOY_VERSION=0.56.16
 ENV BATS_VERSION=1.9.0
 ENV AWSPEC_VERSION=1.29.2
 ENV INSPEC_VERSION=5.21.29
-ENV ARGOCD_VERSION=2.6.7
-ENV FLUX_VERSION=2.0.0-rc.1
-ENV KIND_VERSION=0.18.0
-ENV CHECKOV_VERSION=2.3.199
+ENV ARGOCD_VERSION=2.7.6
+ENV FLUX_VERSION=2.0.0-rc.5
+ENV KIND_VERSION=0.20.0
+ENV CHECKOV_VERSION=2.3.301
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -30,9 +30,9 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
     sudo apk add --no-cache \
              docker==23.0.6-r2 \
-             nodejs==18.16.0-r1 \
+             nodejs==18.16.1-r0 \
              npm==9.6.6-r0 \
-             python3==3.11.3-r11 \
+             python3==3.11.4-r0 \
              ruby==3.2.2-r0 \
              ruby-webrick==1.8.1-r0 \
              ruby-bundler==2.4.12-r0 \
@@ -40,7 +40,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r3 \
              ruby-dev==3.2.2-r0 \
-             python3-dev==3.11.3-r11 \
+             python3-dev==3.11.4-r0 \
              libffi-dev==3.4.4-r2 \
              g++==12.2.1_git20220924-r10 \
              gcc==12.2.1_git20220924-r10 \
@@ -53,7 +53,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
              json:2.6.1 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==23.1 && \
+    sudo pip3 install --upgrade pip==23.1.2 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \
@@ -83,4 +83,3 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
 COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
-

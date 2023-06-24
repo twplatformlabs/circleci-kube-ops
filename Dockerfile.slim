@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:slim-6.6.2
+FROM twdps/circleci-base-image:slim-6.7.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Debian-based CircleCI executor image" \
@@ -11,17 +11,17 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.created="CREATED" \
       org.opencontainers.image.version="VERSION"
 
-ENV KUBECTL_VERSION=1.26.4
-ENV HELM_VERSION=3.11.3
-ENV AWSCLI_VERSION=1.27.126
+ENV KUBECTL_VERSION=1.27.3
+ENV HELM_VERSION=3.12.1
+ENV AWSCLI_VERSION=1.27.160
 ENV SONOBUOY_VERSION=0.56.16
 ENV BATS_VERSION=1.9.0
 ENV AWSPEC_VERSION=1.29.2
 ENV INSPEC_VERSION=5.21.29
-ENV ARGOCD_VERSION=2.6.7
-ENV FLUX_VERSION=2.0.0-rc.1
-ENV KIND_VERSION=0.18.0
-ENV CHECKOV_VERSION=2.3.199
+ENV ARGOCD_VERSION=2.7.6
+ENV FLUX_VERSION=2.0.0-rc.5
+ENV KIND_VERSION=0.20.0
+ENV CHECKOV_VERSION=2.3.301
 ENV DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
@@ -50,8 +50,8 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo bash -c "curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg" && \
     sudo bash -c "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bullseye stable\" | tee /etc/apt/sources.list.d/docker.list > /dev/null" && sudo apt-get update && \
     sudo apt-get install --no-install-recommends -y \
-                 docker-ce=5:23.0.1-1~debian.11~bullseye \
-                 docker-compose-plugin=2.16.0-1~debian.11~bullseye \
+                 docker-ce=5:24.0.2-1~debian.11~bullseye \
+                 docker-compose-plugin=2.18.1-1~debian.11~bullseye \
                  nodejs=18.13.0+dfsg1-1 \
                  npm=9.2.0~ds1-1 && \
     sudo npm install -g \
