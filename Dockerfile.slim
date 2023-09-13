@@ -83,8 +83,9 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     curl -o px "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64" && \
     curl -o px_checksum "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64.sha256" && \
     cat px_checksum && sha256sum px && \
-    chmod +x px && \
-    mv px /usr/local/bin && rm px_checksum && \
+    sudo chmod +x px && \
+    sudo mv px /usr/local/bin && \
+    sudo rm px_checksum && \
     sudo bash -c "export FLUX_VERSION=${FLUX_VERSION} curl -s https://fluxcd.io/install.sh | sudo bash" && \
     curl -SLO https://github.com/ThoughtWorks-DPS/circlepipe/releases/download/${CIRCLEPIPE_VERSION}/circlepipe_Linux_amd64.tar.gz && \
     mkdir ./circlepipe && tar -xzf circlepipe_Linux_amd64.tar.gz -C ./circlepipe && \
