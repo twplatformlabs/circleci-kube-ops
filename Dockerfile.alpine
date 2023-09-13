@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-6.0.1
+FROM twdps/circleci-base-image:alpine-6.9.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -11,17 +11,18 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.created="CREATED" \
       org.opencontainers.image.version="VERSION"
 
-ENV KUBECTL_VERSION=1.26.4
-ENV HELM_VERSION=3.11.3
-ENV AWSCLI_VERSION=1.27.114
+ENV KUBECTL_VERSION=1.28.1
+ENV HELM_VERSION=3.12.3
+ENV AWSCLI_VERSION=1.29.45
 ENV SONOBUOY_VERSION=0.56.16
-ENV BATS_VERSION=1.9.0
+ENV BATS_VERSION=1.10.0
 ENV AWSPEC_VERSION=1.29.2
-ENV INSPEC_VERSION=5.21.29
-ENV ARGOCD_VERSION=2.6.7
-ENV FLUX_VERSION=1.25.4
-ENV KIND_VERSION=0.18.0
-ENV CHECKOV_VERSION=2.3.165
+ENV INSPEC_VERSION=5.22.3
+ENV ARGOCD_VERSION=2.8.3
+ENV FLUX_VERSION=2.1.0
+ENV KIND_VERSION=0.20.0
+ENV CHECKOV_VERSION=2.4.32
+ENV CIRCLEPIPE_VERSION=0.2.0
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -29,22 +30,22 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3004
 RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
     sudo apk add --no-cache \
-             docker==20.10.24-r1 \
-             nodejs==18.14.2-r0 \
-             npm==9.1.2-r0 \
-             python3==3.11.3-r4 \
-             ruby==3.1.4-r0 \
-             ruby-webrick==1.7.0-r1 \
-             ruby-bundler==2.3.26-r0 \
-             jq==1.6-r2 && \
+             docker==23.0.6-r5 \
+             nodejs==18.17.1-r0 \
+             npm==9.6.6-r0 \
+             python3==3.11.5-r0 \
+             ruby==3.2.2-r0 \
+             ruby-webrick==1.8.1-r0 \
+             ruby-bundler==2.4.15-r0 \
+             jq==1.6-r3 && \
     sudo apk add --no-cache --virtual build-dependencies \
              build-base==0.5-r3 \
-             ruby-dev==3.1.4-r0 \
-             python3-dev==3.11.3-r4 \
-             libffi-dev==3.4.4-r0 \
-             g++==12.2.1_git20220924-r4 \
-             gcc==12.2.1_git20220924-r4 \
-             make==4.3-r1 && \
+             ruby-dev==3.2.2-r0 \
+             python3-dev==3.11.5-r0 \
+             libffi-dev==3.4.4-r2 \
+             g++==12.2.1_git20220924-r10 \
+             gcc==12.2.1_git20220924-r10 \
+             make==4.4.1-r1 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
@@ -53,7 +54,7 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
              json:2.6.1 && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==23.1 && \
+    sudo pip3 install --upgrade pip==23.2.1 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \
@@ -78,6 +79,10 @@ RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \
     sudo bash -c "export FLUX_VERSION=${FLUX_VERSION} curl -s https://fluxcd.io/install.sh | sudo bash" && \
+    curl -SLO https://github.com/ThoughtWorks-DPS/circlepipe/releases/download/${CIRCLEPIPE_VERSION}/circlepipe_Linux_amd64.tar.gz && \
+    mkdir ./circlepipe && tar -xzf circlepipe_Linux_amd64.tar.gz -C ./circlepipe && \
+    sudo mv ./circlepipe/circlepipe /usr/local/bin/circlepipe && \
+    sudo rm -rf ./circlepipe circlepipe_Linux_amd64.tar.gz && \
     sudo apk del build-dependencies
 
 COPY inspec /etc/chef/accepted_licenses/inspec
