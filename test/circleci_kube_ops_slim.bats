@@ -50,6 +50,11 @@
   [[ "${output}" =~ "2.4" ]]
 }
 
+@test "px version" {
+  run bash -c "docker exec circleci-kube-ops-slim-edge px version"
+  [[ "${output}" =~ "0.8.2" ]]
+}
+
 @test "circlepipe version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge circlepipe version"
   [[ "${output}" =~ "0.2" ]]
