@@ -2,22 +2,16 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@1.2.0
+  executor-tools: twdps/executor-tools@1.8.0
   op: twdps/onepassword@1.0.0
+  do: twdps/pipeline-events@1.0.0
 
-parameters:
-  context:
-    description: circleci context for all jobs
-    type: string
-    default: twdps-core-labs-team
-  shell-options:
-    description: shell options for all jobs
-    type: string
-    default: op run --env-file op.env -- /bin/bash -eo pipefail
-  registry:
-    description: publish to this registry
-    type: string
-    default: docker.io
+# ================================================================= global pipeline parameters
+
+globals:
+  - &context twdps-core-labs-team
+  - &shell op run --env-file op.env -- /bin/bash -eo pipefail
+  - &registry docker.io
 
 on-push-main: &on-push-main
   branches:
@@ -31,15 +25,17 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
+# ================================================================= workflows
 
 workflows:
   version: 2
-  alpine-image-pipeline:
+
+  alpine image build:
     jobs:
       - executor-tools/machine-executor-dev-release:
-          name: alpine-dev-build
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          name: alpine image build
+          context: *context
+          registry: *registry
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-kube-ops
           tag: alpine-edge
@@ -61,32 +57,12 @@ workflows:
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
-      - executor-tools/publish:
-          shell: << pipeline.parameters.shell-options >>
-          name: alpine-release
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
-          executor-image-name: twdps/circleci-executor-builder:alpine-3.0.0
-          pull-tag: alpine-edge
-          tag-annotation: alpine-
-          image: twdps/circleci-kube-ops
-          release-tag: alpine-stable
-          sign-image: true
-          sbom: true
-          after-publish:
-            - run:
-                name: setup cosign keys
-                command: |
-                  op inject -i cosign.key.env -o cosign.key
-                  op inject -i cosign.pub.env -o cosign.pub
-          filters: *on-tag-main
-
-  slim-image-pipeline:
+  slim image build:
     jobs:
       - executor-tools/machine-executor-dev-release:
-          name: slim-dev-build
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          name: slim image build
+          context: *context
+          registry: *registry
           dockerfile: Dockerfile.slim
           image: twdps/circleci-kube-ops
           tag: slim-edge
@@ -109,11 +85,33 @@ workflows:
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
           filters: *on-push-main
 
+  release version:
+    jobs:
+
       - executor-tools/publish:
-          shell:  << pipeline.parameters.shell-options >>
-          name: slim-release
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          name: alpine release
+          shell: *shell
+          context: *context
+          registry: *registry
+          pull-tag: alpine-edge
+          tag-annotation: alpine-
+          image: twdps/circleci-kube-ops
+          release-tag: alpine-stable
+          sign-image: true
+          sbom: true
+          after-publish:
+            - run:
+                name: setup cosign keys
+                command: |
+                  op inject -i cosign.key.env -o cosign.key
+                  op inject -i cosign.pub.env -o cosign.pub
+          filters: *on-tag-main
+
+      - executor-tools/publish:
+          name: slim release
+          shell: *shell
+          context: *context
+          registry: *registry
           pull-tag: slim-edge
           tag-annotation: slim-
           image: twdps/circleci-kube-ops
@@ -128,10 +126,23 @@ workflows:
                   op inject -i cosign.pub.env -o cosign.pub
           filters: *on-tag-main
 
-  generate-release-notes:
+  release-events:
     jobs:
-      - executor-tools/release:
-          context: << pipeline.parameters.context >>
-          shell:  << pipeline.parameters.shell-options >>
+      - do/schedule-pipeline:
+          name: configure weekly trigger
+          shell: *shell
+          context: *context
+          scheduled-pipeline-name: weekly-ci-build
+          scheduled-pipeline-description: |
+            Automatically trigger image build on a weekly schedule. Failure of
+            this recurring build indicates new releases of dependent packages.
+          hours-of-day: "[1]"
+          days-of-week: "[\"SUN\"]"
+          filters: *on-tag-main
+
+      - do/release:
+          name: generate release notes
+          shell: *shell
+          context: *context
           on-tag: true
           filters: *on-tag-main

@@ -49,3 +49,8 @@
   run bash -c "docker exec circleci-kube-ops-alpine-edge checkov -v"
   [[ "${output}" =~ "2.4" ]]
 }
+
+@test "circlepipe version" {
+  run bash -c "docker exec circleci-kube-ops-alpine-edge circlepipe version"
+  [[ "${output}" =~ "0.2" ]]
+}
