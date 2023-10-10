@@ -12,7 +12,7 @@
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge helm version --short=true"
-  [[ "${output}" =~ "3.12" ]]
+  [[ "${output}" =~ "3.13" ]]
 }
 
 @test "sonobuoy version" {
@@ -47,7 +47,7 @@
 
 @test "checkov version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge checkov -v"
-  [[ "${output}" =~ "2.4" ]]
+  [[ "${output}" =~ "2.5" ]]
 }
 
 @test "px version" {

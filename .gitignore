@@ -2,3 +2,4 @@ local.env
 .venv
 Pipfile.lock
 .ruby-version
+.python-version
