@@ -6,7 +6,7 @@
 }
 
 @test "kubectl version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl version --short=true --client=true"
+  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl version --client=true"
   [[ "${output}" =~ "1.28" ]]
 }
 
@@ -41,7 +41,7 @@
 }
 
 @test "flux version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge flux version"
+  run bash -c "docker exec circleci-kube-ops-alpine-edge flux --version"
   [[ "${output}" =~ "2.1" ]]
 }
 
