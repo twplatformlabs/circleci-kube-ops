@@ -31,14 +31,14 @@ SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 # sudo since twdps circleci base images set the USER=cirlceci
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
-                 jq=1.7-1 \
+                 jq=1.7.1-2 \
                  gnupg=2.2.40-1.1 \
-                 python3-dev=3.11.4-5+b1 \
+                 python3-dev=3.11.6-1 \
                  python3-pip \
-                 python3-venv=3.11.4-5+b1 \
+                 python3-venv=3.11.6-1 \
                  ruby-full=1:3.1 \
-                 gcc=4:13.2.0-1 \
-                 g++=4:13.2.0-1 \
+                 gcc=4:13.2.0-2 \
+                 g++=4:13.2.0-2 \
                  make=4.3-4.1 && \
     sudo ln -f -s /usr/bin/pip3 /usr/bin/pip && \
     sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
@@ -54,8 +54,8 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo apt-get install --no-install-recommends -y \
                  docker-ce=5:24.0.6-1~debian.11~bullseye \
                  docker-compose-plugin=2.21.0-1~debian.11~bullseye \
-                 nodejs=18.13.0+dfsg1-1 \
-                 npm=9.2.0~ds1-1 && \
+                 nodejs=18.19.0+dfsg-6 \
+                 npm=9.2.0~ds1-2 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
