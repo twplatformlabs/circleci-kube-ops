@@ -157,4 +157,9 @@ ignore:
         reason: Runs on ephemeral pipeline executor
         expires: 2024-02-17T03:50:15.398Z
         created: 2024-01-18T03:50:15.402Z
+  SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONNETHTTPOTELHTTP-5971109:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T04:17:23.518Z
+        created: 2024-01-18T04:17:23.546Z
 patch: {}
