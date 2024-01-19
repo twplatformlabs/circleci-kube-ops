@@ -7,22 +7,22 @@
 
 @test "kubectl version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.28" ]]
+  [[ "${output}" =~ "1.29" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge helm version --short=true"
-  [[ "${output}" =~ "3.13" ]]
+  [[ "${output}" =~ "3.14" ]]
 }
 
 @test "sonobuoy version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.56" ]]
+  [[ "${output}" =~ "0.57" ]]
 }
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge argocd version --short=true"
-  [[ "${output}" =~ "2.8" ]]
+  [[ "${output}" =~ "2.9" ]]
 }
 
 @test "awspec version" {
@@ -32,7 +32,7 @@
 
 @test "inspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge inspec --version"
-  [[ "${output}" =~ "5.22" ]]
+  [[ "${output}" =~ "6.6" ]]
 }
 
 @test "kind version" {
@@ -42,20 +42,20 @@
 
 @test "flux version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge flux --version"
-  [[ "${output}" =~ "2.1.1" ]]
+  [[ "${output}" =~ "2.2" ]]
 }
 
 @test "checkov version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge checkov -v"
-  [[ "${output}" =~ "2.5" ]]
+  [[ "${output}" =~ "3.1" ]]
 }
 
 @test "px version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge px version"
-  [[ "${output}" =~ "0.8.2" ]]
+  [[ "${output}" =~ "0.8" ]]
 }
 
 @test "circlepipe version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge circlepipe version"
-  [[ "${output}" =~ "0.2" ]]
+  [[ "${output}" =~ "0.3" ]]
 }
