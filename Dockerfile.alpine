@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.created="CREATED" \
-      org.opencontainers.image.version="VERSION"
+      org.opencontainers.image.version="CIRCLE_SHA1"
 
 ENV KUBECTL_VERSION=1.29.1
 ENV HELM_VERSION=3.14.0
@@ -76,6 +76,7 @@ RUN sudo apk add --no-cache \
     cat px_checksum && sha256sum px && \
     sudo chmod +x px && \
     sudo mv px /usr/local/bin && \
+    sudo rm px_checksum && \
     curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \
