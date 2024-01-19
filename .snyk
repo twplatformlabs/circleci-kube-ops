@@ -2,6 +2,56 @@
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-DEBIANUNSTABLE-LIBARCHIVE-5661562:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-LIBXML2-5947662:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-LIBXML2-5871336:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-PYTHON311-5430938:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-RUBY31-5406344:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-RUBY31-5406336:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-WGET-1277613:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-PERL-5489187:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-OPENSSH-6139208:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
+  SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
+    - '*':
+        reason: Runs on ephemeral pipeline executor
+        expires: 2024-02-17T02:36:21.514Z
+        created: 2024-01-18T02:36:21.518Z
   SNYK-GOLANG-GITHUBCOMGOJOSEGOJOSEV3-6070737:
     - '*':
         reason: Runs on ephemeral pipeline executor

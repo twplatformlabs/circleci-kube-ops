@@ -12,7 +12,7 @@
 
 Common tools and packages used in pipelines managing kubernetes. Works in conjunction with the [twdps/kube-ops](https://github.com/ThoughtWorks-DPS/orb-kube-ops) orb.  
 
-Packages included on kube-ops executor, but can override version with orb commands:   
+Packages included on kube-ops executor, but can override version with orb commands:  
 - kubectl
 - kind
 - helm
@@ -23,6 +23,7 @@ Packages included on kube-ops executor, but can override version with orb comman
 - argocd
 - flux
 - checkov
+- trivy
 
 Packages that must be specified using the kube-ops/packages command (not on executor):  
 - istioctl
@@ -30,12 +31,9 @@ Packages that must be specified using the kube-ops/packages command (not on exec
 Capabilities provided by orb using remote image at runtime:  
 - kube-bench
 
-Packages available on the executor, can not be overridden using orb: 
-- docker # for using kind in operator-sdk build pipelines
-- curl
-- wget
+Packages available on the executor, can not be overridden using orb:
 - python3
-- ruby 
+- ruby
 - nodejs
 - npm
 - pip: awscli

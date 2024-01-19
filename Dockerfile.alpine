@@ -30,7 +30,6 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # RUN sudo bash -c "echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories" && \
 # sudo since twdps circleci remote docker images set the USER=cirlceci
 # hadolint ignore=DL3004
-
 RUN sudo apk add --no-cache \
              nodejs-current==21.4.0-r0 \
              npm==10.2.5-r0 \
