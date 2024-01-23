@@ -32,7 +32,7 @@
 
 @test "inspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge inspec --version"
-  [[ "${output}" =~ "6.6" ]]
+  [[ "${output}" =~ "5.22" ]]
 }
 
 @test "kind version" {
