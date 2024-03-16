@@ -22,7 +22,7 @@
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge argocd version --short=true"
-  [[ "${output}" =~ "2.9" ]]
+  [[ "${output}" =~ "2.10" ]]
 }
 
 @test "awspec version" {
@@ -37,7 +37,7 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge kind version"
-  [[ "${output}" =~ "0.20" ]]
+  [[ "${output}" =~ "0.22" ]]
 }
 
 @test "flux version" {
@@ -47,7 +47,7 @@
 
 @test "checkov version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge checkov -v"
-  [[ "${output}" =~ "3.1" ]]
+  [[ "${output}" =~ "3.2" ]]
 }
 
 @test "px version" {
