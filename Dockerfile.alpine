@@ -37,8 +37,8 @@ RUN sudo apk add --no-cache \
              ruby-dev==3.2.2-r1 \
              ruby-webrick==1.8.1-r0 \
              ruby-bundler==2.4.15-r0 \
-             python3==3.11.8-r1 \
-             python3-dev==3.11.8-r1 \
+             python3==3.11.8-r0 \
+             python3-dev==3.11.8-r0 \
              libffi-dev==3.4.4-r3 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \

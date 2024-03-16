@@ -2,6 +2,22 @@
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-GOLANG-GITHUBCOMJACKCPGPROTO3V2-6371508:
+    - "*":
+      reason: SQL Injection
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-GITHUBCOMGOJOSEGOJOSEV3-6419233:
+    - "*":
+      reason: Improper Handling of Highly Compressed Data (Data Amplification)
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFENCODINGPROTOJSON-6393703:
+    - "*":
+      reason: Infinite loop
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFINTERNALENCODINGJSON-6393704:
+    - "*":
+      reason: Infinite loop
+      expires: 2024-05-01T14:26:34.404Z
   SNYK-DEBIANUNSTABLE-LIBARCHIVE-5661562:
     - '*':
         reason: Runs on ephemeral pipeline executor
