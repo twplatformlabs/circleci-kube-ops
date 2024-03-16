@@ -2,7 +2,34 @@
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-
+  SNYK-GOLANG-GITHUBCOMCONTAINERDCONTAINERD-6219724:
+    - "*":
+      reason: Container Breakout (Leaky Vessels)
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGDOWNLOADER-6247647:
+    - "*":
+      reason: Path traversal
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGCHARTUTIL-6247646:
+    - "*":
+      reason: Path traversal
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGCHART-6247645:
+    - "*":
+      reason: Path traversal
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGREPO-6261791:
+    - "*":
+      reason: Use of Uninitialized resource
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGPLUGIN-6261790:
+    - "*":
+      reason: Use of Uninitialized resource
+      expires: 2024-05-01T14:26:34.404Z
+  SNYK-GOLANG-HELMSHHELMV3PKGLINTRULES-6247648:
+    - "*":
+      reason: Path traversal
+      expires: 2024-05-01T14:26:34.404Z
   SNYK-GOLANG-GITHUBCOMJACKCPGPROTO3V2-6371508:
     - "*":
       reason: SQL Injection
@@ -51,7 +78,6 @@ ignore:
     - '*':
         reason: Runs on ephemeral pipeline executor
         expires: 2024-05-17T02:36:21.514Z
-        created: 2024-01-18T02:36:21.518Z
   SNYK-DEBIANUNSTABLE-OPENSSH-6139208:
     - '*':
         reason: Runs on ephemeral pipeline executor
