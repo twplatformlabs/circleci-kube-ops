@@ -2,7 +2,7 @@
 
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge bats -v"
-  [[ "${output}" =~ "1.10" ]]
+  [[ "${output}" =~ "1.11" ]]
 }
 
 @test "kubectl version" {
@@ -27,7 +27,7 @@
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-slim-edge awspec --version"
-  [[ "${output}" =~ "1.29" ]]
+  [[ "${output}" =~ "1.30" ]]
 }
 
 @test "inspec version" {
