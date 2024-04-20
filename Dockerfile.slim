@@ -41,7 +41,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
-    sudo pip install --no-cache-dir --break-system-packages \
+    sudo pip install --no-cache-dir --break-system-packages --ignore-installed \
              checkov==${CHECKOV_VERSION} \
              awscli==${AWSCLI_VERSION} && \
     sudo npm install -g \
