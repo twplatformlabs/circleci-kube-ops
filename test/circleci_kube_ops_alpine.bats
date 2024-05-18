@@ -37,7 +37,7 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge kind version"
-  [[ "${output}" =~ "0.22.0" ]]
+  [[ "${output}" =~ "0.23.0" ]]
 }
 
 @test "flux version" {
