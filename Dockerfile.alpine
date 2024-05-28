@@ -18,7 +18,6 @@ ENV ISTIO_VERSION=1.22.0
 ENV SONOBUOY_VERSION=0.57.1
 ENV BATS_VERSION=1.11.0
 ENV AWSPEC_VERSION=1.30.0
-ENV INSPEC_VERSION=5.22.36
 ENV ARGOCD_VERSION=2.11.0
 ENV FLUX_VERSION=2.3.0
 ENV KIND_VERSION=0.23.0
@@ -44,7 +43,6 @@ RUN sudo apk add --no-cache \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             inspec-bin:${INSPEC_VERSION} \
              json:2.7.1 && \
     sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED && \
     sudo python3 -m ensurepip && \
@@ -61,7 +59,7 @@ RUN sudo apk add --no-cache \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
-    sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -" && \
+    sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - " && \
     sudo cp istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
     rm -rf istio-${ISTIO_VERSION} && \
     curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
@@ -90,7 +88,5 @@ RUN sudo apk add --no-cache \
     curl -LO https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz && \
     tar xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz trivy && \
     sudo mv trivy /usr/local/bin && rm trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz
-
-COPY inspec /etc/chef/accepted_licenses/inspec
 
 USER circleci
