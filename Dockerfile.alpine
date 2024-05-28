@@ -15,7 +15,6 @@ ENV KUBECTL_VERSION=1.30.1
 ENV HELM_VERSION=3.15.0
 ENV AWSCLI_VERSION=1.32.25
 ENV ISTIO_VERSION=1.22.0
-ENV SONOBUOY_VERSION=0.57.1
 ENV BATS_VERSION=1.11.0
 ENV AWSPEC_VERSION=1.30.0
 ENV ARGOCD_VERSION=2.11.0
@@ -58,25 +57,20 @@ RUN sudo apk add --no-cache \
     sudo mv ./kind /usr/local/bin/kind && \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
-    sudo mv ./kubectl /usr/local/bin/kubectl && \
-    sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - " && \
+    sudo mv ./kubectl /usr/local/bin/kubectl
+
+RUN sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - " && \
     sudo cp istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
-    rm -rf istio-${ISTIO_VERSION} && \
-    curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
+    rm -rf istio-${ISTIO_VERSION}
+
+RUN curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
     sudo mv linux-amd64/helm /usr/local/bin && \
     sudo rm -rf linux-amd64/ && \
     sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    sudo mv sonobuoy /usr/local/bin/sonobuoy && \
-    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -o px "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64" && \
-    curl -o px_checksum "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64.sha256" && \
-    cat px_checksum && sha256sum px && \
     sudo chmod +x px && \
     sudo mv px /usr/local/bin && \
-    sudo rm px_checksum && \
     curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \

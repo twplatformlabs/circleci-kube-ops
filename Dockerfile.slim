@@ -15,10 +15,8 @@ ENV KUBECTL_VERSION=1.30.1
 ENV HELM_VERSION=3.15.0
 ENV AWSCLI_VERSION=1.32.25
 ENV ISTIO_VERSION=1.22.0
-ENV SONOBUOY_VERSION=0.57.1
 ENV BATS_VERSION=1.11.0
 ENV AWSPEC_VERSION=1.30.0
-ENV INSPEC_VERSION=5.22.36
 ENV ARGOCD_VERSION=2.11.0
 ENV FLUX_VERSION=2.3.0
 ENV KIND_VERSION=0.23.0
@@ -49,7 +47,6 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             inspec-bin:${INSPEC_VERSION} \
              json:2.7.1 && \
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
     sudo chmod +x ./kind && \
@@ -65,10 +62,6 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo mv linux-amd64/helm /usr/local/bin && \
     sudo rm -rf linux-amd64/ && \
     sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    curl -SLO "https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    sudo tar -xf "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && \
-    sudo mv sonobuoy /usr/local/bin/sonobuoy && \
-    sudo rm "sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz" && sudo rm LICENSE && \
     curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \
