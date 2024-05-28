@@ -59,3 +59,8 @@
   run bash -c "docker exec circleci-kube-ops-alpine-edge circlepipe version"
   [[ "${output}" =~ "0.3" ]]
 }
+
+@test "istioctl version" {
+  run bash -c "docker exec circleci-kube-ops-alpine-edge istioctl version --remote=false"
+  [[ "${output}" =~ "1.22" ]]
+}
