@@ -59,7 +59,7 @@ RUN sudo apk add --no-cache \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl
 # hadolint ignore=DL3004
-RUN sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - " && \
+RUN curl -L https://istio.io/downloadIstio | sudo ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     sudo cp istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
     rm -rf istio-${ISTIO_VERSION}
 # hadolint ignore=DL3004
