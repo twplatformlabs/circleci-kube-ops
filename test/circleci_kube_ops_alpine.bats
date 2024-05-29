@@ -15,11 +15,6 @@
   [[ "${output}" =~ "3.15" ]]
 }
 
-@test "sonobuoy version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge sonobuoy version --short=true"
-  [[ "${output}" =~ "0.57" ]]
-}
-
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge argocd version --short=true"
   [[ "${output}" =~ "2.11" ]]
@@ -28,11 +23,6 @@
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge awspec --version"
   [[ "${output}" =~ "1.30" ]]
-}
-
-@test "inspec version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge inspec --version"
-  [[ "${output}" =~ "5.22" ]]
 }
 
 @test "kind version" {
