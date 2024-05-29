@@ -54,7 +54,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
-    sudo -c "curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -" && \
+    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     sudo cp istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
     rm -rf istio-${ISTIO_VERSION} && \
     curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
