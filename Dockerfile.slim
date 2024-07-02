@@ -80,6 +80,4 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     tar xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz trivy && \
     sudo mv trivy /usr/local/bin && rm trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz
 
-COPY inspec /etc/chef/accepted_licenses/inspec
-
 USER circleci
