@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-7.4.0
+FROM twdps/circleci-base-image:alpine-8.1.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -11,17 +11,17 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.created="CREATED" \
       org.opencontainers.image.version="CIRCLE_SHA1"
 
-ENV KUBECTL_VERSION=1.30.1
-ENV HELM_VERSION=3.15.0
+ENV KUBECTL_VERSION=1.30.2
+ENV HELM_VERSION=3.15.2
 ENV AWSCLI_VERSION=1.32.25
-ENV ISTIO_VERSION=1.22.0
+ENV ISTIO_VERSION=1.22.2
 ENV BATS_VERSION=1.11.0
 ENV AWSPEC_VERSION=1.30.0
-ENV ARGOCD_VERSION=2.11.0
+ENV ARGOCD_VERSION=2.11.4
 ENV FLUX_VERSION=2.3.0
 ENV KIND_VERSION=0.23.0
 ENV CHECKOV_VERSION=3.2.38
-ENV TRIVY_VERSION=0.51.1
+ENV TRIVY_VERSION=0.53.0
 ENV CIRCLEPIPE_VERSION=0.3.2
 ENV PX_VERSION=0.8.2
 
@@ -29,24 +29,24 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
-             nodejs-current==21.7.2-r0 \
-             npm==10.2.5-r0 \
-             ruby==3.2.4-r0 \
-             ruby-dev==3.2.4-r0 \
-             ruby-webrick==1.8.1-r0 \
-             ruby-bundler==2.4.15-r0 \
-             python3==3.11.9-r0 \
-             python3-dev==3.11.9-r0 \
-             libffi-dev==3.4.4-r3 && \
+             nodejs-current==21.7.3-r0 \
+             npm==10.8.0-r0 \
+             ruby==3.3.3-r0 \
+             ruby-dev==3.3.3-r0 \
+             ruby-webrick==1.8.1-r1 \
+             ruby-bundler==2.5.9-r0 \
+             python3==3.12.3-r1\
+             python3-dev==3.12.3-r1 \
+             libffi-dev==3.4.6-r0 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
              json:2.7.1 && \
-    sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED && \
+    sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==24.0 && \
+    sudo pip3 install --upgrade pip==24.1.1 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \

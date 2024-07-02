@@ -18,7 +18,6 @@ Packages included on kube-ops executor, but can override version with orb comman
 - helm
 - npm: bats
 - sonobuoy
-- gem: inspec
 - gem: awspec
 - argocd
 - flux
