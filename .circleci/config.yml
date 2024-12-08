@@ -50,6 +50,10 @@ workflows:
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-kube-ops
           tag: alpine-edge
+          snyk-scan: true
+          snyk-severity-threshold: high
+          snyk-skip-base-image: true
+          snyk-organization: twdps
           bats-test: true
           bats-run-container-name: circleci-kube-ops-alpine-edge
           bats-entry-point: /bin/ash
@@ -59,19 +63,23 @@ workflows:
             - op/env
           filters: *on-push-main
 
-  slim build:
+  ubuntu build:
     jobs:
       - executor-tools/dev-release:
-          name: slim image build
+          name: ubuntu image build
           context: *context
           shell: *shell
-          dockerfile: Dockerfile.slim
+          dockerfile: Dockerfile.ubuntu
           image: twdps/circleci-kube-ops
-          tag: slim-edge
+          tag: ubuntu-edge
+          snyk-scan: true
+          snyk-severity-threshold: high
+          snyk-skip-base-image: true
+          snyk-organization: twdps
           bats-test: true
-          bats-run-container-name: circleci-kube-ops-slim-edge
+          bats-run-container-name: circleci-kube-ops-ubuntu-edge
           bats-entry-point: /bin/bash
-          bats-test-path: test/circleci_kube_ops_slim.bats
+          bats-test-path: test/circleci_kube_ops_ubuntu.bats
           opencontainer-labels: true
           after-checkout:
             - op/env
@@ -95,13 +103,13 @@ workflows:
           filters: *on-tag-main
 
       - executor-tools/publish:
-          name: slim release
+          name: ubuntu release
           context: *context
           shell: *shell
           image: twdps/circleci-kube-ops
-          pull-tag: slim-edge
-          tag-annotation: slim-
-          release-tag: slim-stable
+          pull-tag: ubuntu-edge
+          tag-annotation: ubuntu-
+          release-tag: ubuntu-stable
           sign-image: true
           sbom: true
           after-checkout:
@@ -115,7 +123,7 @@ workflows:
           on-tag: true
           requires:
             - alpine release
-            - slim release
+            - ubuntu release
           filters: *on-tag-main
 
       - do/slack:
@@ -128,7 +136,7 @@ workflows:
             - op/env
           requires:
             - alpine release
-            - slim release
+            - ubuntu release
 
   schedule ci build:
     jobs:

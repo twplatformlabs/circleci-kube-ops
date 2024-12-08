@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:alpine-8.1.0
+FROM twdps/circleci-base-image:alpine-8.4.0
 
 LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image" \
@@ -11,42 +11,42 @@ LABEL org.opencontainers.image.title="circleci-kube-ops" \
       org.opencontainers.image.created="CREATED" \
       org.opencontainers.image.version="CIRCLE_SHA1"
 
-ENV KUBECTL_VERSION=1.30.2
-ENV HELM_VERSION=3.15.2
-ENV AWSCLI_VERSION=1.32.25
-ENV ISTIO_VERSION=1.22.2
-ENV BATS_VERSION=1.11.0
+ENV KUBECTL_VERSION=1.31.3
+ENV HELM_VERSION=3.16.3
+ENV AWSCLI_VERSION=1.36.17
+ENV ISTIO_VERSION=1.24.1
+ENV BATS_VERSION=1.11.1
 ENV AWSPEC_VERSION=1.30.0
-ENV ARGOCD_VERSION=2.11.4
-ENV FLUX_VERSION=2.3.0
-ENV KIND_VERSION=0.23.0
-ENV CHECKOV_VERSION=3.2.38
-ENV TRIVY_VERSION=0.53.0
+ENV ARGOCD_VERSION=2.13.1
+ENV FLUX_VERSION=2.4.0
+ENV KIND_VERSION=0.25.0
+ENV CHECKOV_VERSION=3.2.332
+ENV TRIVY_VERSION=0.58.0
 ENV CIRCLEPIPE_VERSION=0.3.2
-ENV PX_VERSION=0.8.2
+ENV PX_VERSION=0.8.4
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
-             nodejs-current==21.7.3-r0 \
-             npm==10.8.0-r0 \
-             ruby==3.3.3-r0 \
-             ruby-dev==3.3.3-r0 \
+             nodejs-current==23.2.0-r1 \
+             npm==10.9.1-r0 \
+             ruby==3.3.6-r0 \
+             ruby-dev==3.3.6-r0 \
              ruby-webrick==1.8.1-r1 \
-             ruby-bundler==2.5.9-r0 \
-             python3==3.12.3-r1\
-             python3-dev==3.12.3-r1 \
+             ruby-bundler==2.5.23-r0 \
+             python3==3.12.8-r1 \
+             python3-dev==3.12.8-r1 \
              libffi-dev==3.4.6-r0 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             json:2.7.1 && \
+             json:2.8.2 && \
     sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
-    sudo pip3 install --upgrade pip==24.1.1 && \
+    sudo pip3 install --upgrade pip==24.3.1 && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \
@@ -55,7 +55,7 @@ RUN sudo apk add --no-cache \
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \
-    curl -SLO "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+    curl -SLO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sudo chmod +x ./kubectl  && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
     curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
