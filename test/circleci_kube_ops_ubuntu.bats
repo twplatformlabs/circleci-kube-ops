@@ -17,7 +17,7 @@
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge argocd version --short=true"
-  [[ "${output}" =~ "2.12" ]]
+  [[ "${output}" =~ "2.13" ]]
 }
 
 @test "awspec version" {
@@ -27,7 +27,7 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge kind version"
-  [[ "${output}" =~ "0.24" ]]
+  [[ "${output}" =~ "0.25" ]]
 }
 
 @test "flux version" {
@@ -52,5 +52,5 @@
 
 @test "istioctl version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.23" ]]
+  [[ "${output}" =~ "1.24" ]]
 }
