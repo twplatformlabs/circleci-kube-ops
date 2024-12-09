@@ -1,22 +1,22 @@
 #!/usr/bin/env bats
 
 @test "node version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl node -v"
-  [[ "${output}" =~ "20.16" ]]
+  run bash -c "docker exec circleci-kube-ops-alpine-edge node -v"
+  [[ "${output}" =~ "23.2" ]]
 }
 
 @test "npm version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl npm -v"
-  [[ "${output}" =~ "9.2" ]]
+  run bash -c "docker exec circleci-kube-ops-alpine-edge npm -v"
+  [[ "${output}" =~ "10.9" ]]
 }
 
 @test "ruby version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl ruby -v"
+  run bash -c "docker exec circleci-kube-ops-alpine-edge ruby -v"
   [[ "${output}" =~ "3.3" ]]
 }
 
 @test "python version" {
-  run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl python -V"
+  run bash -c "docker exec circleci-kube-ops-alpine-edge python -V"
   [[ "${output}" =~ "3.12" ]]
 }
 

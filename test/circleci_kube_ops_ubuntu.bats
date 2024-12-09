@@ -1,5 +1,27 @@
 #!/usr/bin/env bats
 
+@test "node version" {
+  run bash -c "docker exec circleci-kube-ops-ubuntu-edge node -v"
+  [[ "${output}" =~ "20.16" ]]
+}
+
+@test "npm version" {
+  run bash -c "docker exec circleci-kube-ops-ubuntu-edge npm -v"
+  [[ "${output}" =~ "9.2" ]]
+}
+
+@test "ruby version" {
+  run bash -c "docker exec circleci-kube-ops-ubuntu-edge ruby -v"
+  [[ "${output}" =~ "3.3" ]]
+}
+
+@test "python version" {
+  run bash -c "docker exec circleci-kube-ops-ubuntu-edge python -V"
+  [[ "${output}" =~ "3.12" ]]
+}
+
+
+
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge bats -v"
   [[ "${output}" =~ "1.11" ]]
