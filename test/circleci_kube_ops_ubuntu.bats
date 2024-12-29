@@ -20,8 +20,6 @@
   [[ "${output}" =~ "3.12" ]]
 }
 
-
-
 @test "bats version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge bats -v"
   [[ "${output}" =~ "1.11" ]]
