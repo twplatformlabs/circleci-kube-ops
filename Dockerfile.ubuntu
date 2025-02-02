@@ -1,27 +1,28 @@
-FROM twdps/circleci-base-image:ubuntu-8.4.1
+FROM twdps/circleci-base-image:ubuntu-8.5.0
 
-LABEL org.opencontainers.image.title="circleci-kube-ops" \
-      org.opencontainers.image.description="Ubuntu-based CircleCI executor image" \
+LABEL org.opencontainers.image.created="%%CREATED%%" \
+      org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
       org.opencontainers.image.documentation="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
       org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
       org.opencontainers.image.url="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
+      org.opencontainers.image.version="%%VERSION%%" \
       org.opencontainers.image.vendor="ThoughtWorks, Inc." \
-      org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.created="CREATED" \
-      org.opencontainers.image.version="CIRCLE_SHA1"
+      org.opencontainers.image.title="circleci-kube-ops" \
+      org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing k9s admin packages" \
+      org.opencontainers.image.base.name="%%BASE%%"
 
-ENV KUBECTL_VERSION=1.31.3
-ENV HELM_VERSION=3.16.3
+ENV KUBECTL_VERSION=1.32.1
+ENV HELM_VERSION=3.17.0
 ENV AWSCLI_VERSION=1.36.17
 ENV ISTIO_VERSION=1.24.2
 ENV BATS_VERSION=1.11.1
-ENV AWSPEC_VERSION=1.30.0
-ENV ARGOCD_VERSION=2.13.1
+ENV AWSPEC_VERSION=1.32.0
+ENV ARGOCD_VERSION=2.13.4
 ENV FLUX_VERSION=2.4.0
-ENV KIND_VERSION=0.25.0
-ENV CHECKOV_VERSION=3.2.332
-ENV TRIVY_VERSION=0.58.0
+ENV KIND_VERSION=0.26.0
+ENV CHECKOV_VERSION=3.2.360
+ENV TRIVY_VERSION=0.59.0
 ENV CIRCLEPIPE_VERSION=0.3.2
 ENV PX_VERSION=0.8.4
 ENV DEBIAN_FRONTEND=noninteractive
@@ -47,7 +48,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             json:2.7.1 && \
+             json:2.9.1 && \
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \
