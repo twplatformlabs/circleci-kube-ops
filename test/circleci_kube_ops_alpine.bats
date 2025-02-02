@@ -22,12 +22,12 @@
 
 @test "kubectl version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.31" ]]
+  [[ "${output}" =~ "1.32" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge helm version --short=true"
-  [[ "${output}" =~ "3.16" ]]
+  [[ "${output}" =~ "3.17" ]]
 }
 
 @test "aws-clibats version" {
@@ -47,7 +47,7 @@
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge awspec --version"
-  [[ "${output}" =~ "1.30" ]]
+  [[ "${output}" =~ "1.32" ]]
 }
 
 @test "argocd version" {
@@ -62,7 +62,7 @@
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge kind version"
-  [[ "${output}" =~ "0.25" ]]
+  [[ "${output}" =~ "0.26" ]]
 }
 
 @test "checkov version" {
@@ -72,7 +72,7 @@
 
 @test "trivy version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge trivy -v"
-  [[ "${output}" =~ "0.58" ]]
+  [[ "${output}" =~ "0.59" ]]
 }
 
 @test "circlepipe version" {

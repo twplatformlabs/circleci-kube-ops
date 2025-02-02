@@ -27,12 +27,12 @@
 
 @test "kubectl version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge kubectl version --client=true"
-  [[ "${output}" =~ "1.31" ]]
+  [[ "${output}" =~ "1.32" ]]
 }
 
 @test "helm version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge helm version --short=true"
-  [[ "${output}" =~ "3.16" ]]
+  [[ "${output}" =~ "3.17" ]]
 }
 
 @test "argocd version" {
@@ -42,12 +42,12 @@
 
 @test "awspec version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge awspec --version"
-  [[ "${output}" =~ "1.30" ]]
+  [[ "${output}" =~ "1.32" ]]
 }
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge kind version"
-  [[ "${output}" =~ "0.25" ]]
+  [[ "${output}" =~ "0.26" ]]
 }
 
 @test "flux version" {
