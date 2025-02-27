@@ -30,7 +30,7 @@
   [[ "${output}" =~ "3.17" ]]
 }
 
-@test "aws-clibats version" {
+@test "aws-cli version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge aws --version"
   [[ "${output}" =~ "aws-cli/1.36" ]]
 }
@@ -52,17 +52,17 @@
 
 @test "argocd version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge argocd version --short=true"
-  [[ "${output}" =~ "2.13" ]]
+  [[ "${output}" =~ "2.14" ]]
 }
 
 @test "flux version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge flux --version"
-  [[ "${output}" =~ "2.4" ]]
+  [[ "${output}" =~ "2.5" ]]
 }
 
 @test "kind version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge kind version"
-  [[ "${output}" =~ "0.26" ]]
+  [[ "${output}" =~ "0.27" ]]
 }
 
 @test "checkov version" {
