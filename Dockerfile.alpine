@@ -2,9 +2,9 @@ FROM twdps/circleci-base-image:alpine-8.5.0
 
 LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
-      org.opencontainers.image.documentation="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
-      org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
-      org.opencontainers.image.url="https://github.com/ThoughtWorks-DPS/circleci-kube-ops" \
+      org.opencontainers.image.documentation="https://github.com/twplatformlabs/circleci-kube-ops" \
+      org.opencontainers.image.source="https://github.com/twplatformlabs/circleci-kube-ops" \
+      org.opencontainers.image.url="https://github.com/twplatformlabs/circleci-kube-ops" \
       org.opencontainers.image.version="%%VERSION%%" \
       org.opencontainers.image.vendor="ThoughtWorks, Inc." \
       org.opencontainers.image.licenses="MIT" \
@@ -12,17 +12,17 @@ LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image containing k9s admin packages" \
       org.opencontainers.image.base.name="%%BASE%%"
 
-ENV KUBECTL_VERSION=1.32.1
-ENV HELM_VERSION=3.17.0
+ENV KUBECTL_VERSION=1.32.2
+ENV HELM_VERSION=3.17.1
 ENV AWSCLI_VERSION=1.36.17
-ENV ISTIO_VERSION=1.24.2
+ENV ISTIO_VERSION=1.24.3
 ENV BATS_VERSION=1.11.1
 ENV AWSPEC_VERSION=1.32.0
-ENV ARGOCD_VERSION=2.13.4
-ENV FLUX_VERSION=2.4.0
-ENV KIND_VERSION=0.26.0
-ENV CHECKOV_VERSION=3.2.360
-ENV TRIVY_VERSION=0.59.0
+ENV ARGOCD_VERSION=2.14.2
+ENV FLUX_VERSION=2.5.1
+ENV KIND_VERSION=0.27.0
+ENV CHECKOV_VERSION=3.2.378
+ENV TRIVY_VERSION=0.59.1
 ENV CIRCLEPIPE_VERSION=0.3.2
 ENV PX_VERSION=0.8.4
 
@@ -36,14 +36,14 @@ RUN sudo apk add --no-cache \
              ruby-dev==3.3.6-r0 \
              ruby-webrick==1.8.1-r1 \
              ruby-bundler==2.5.23-r0 \
-             python3==3.12.8-r1 \
-             python3-dev==3.12.8-r1 \
+             python3==3.12.9-r0 \
+             python3-dev==3.12.9-r0 \
              libffi-dev==3.4.6-r0 && \
     sudo npm install -g \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             json:2.9.1 && \
+             json:2.10.1 && \
     sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED && \
     sudo python3 -m ensurepip && \
     sudo rm -r /usr/lib/python*/ensurepip && \
@@ -74,7 +74,7 @@ RUN sudo apk add --no-cache \
     chmod +x argocd && \
     sudo mv ./argocd /usr/local/bin/argocd && \
     sudo bash -c "curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=${FLUX_VERSION} bash" && \
-    curl -SLO https://github.com/ThoughtWorks-DPS/circlepipe/releases/download/${CIRCLEPIPE_VERSION}/circlepipe_Linux_amd64.tar.gz && \
+    curl -SLO https://github.com/twplatformlabs/circlepipe/releases/download/${CIRCLEPIPE_VERSION}/circlepipe_Linux_amd64.tar.gz && \
     mkdir ./circlepipe && tar -xzf circlepipe_Linux_amd64.tar.gz -C ./circlepipe && \
     sudo mv ./circlepipe/circlepipe /usr/local/bin/circlepipe && \
     sudo rm -rf ./circlepipe circlepipe_Linux_amd64.tar.gz && \
