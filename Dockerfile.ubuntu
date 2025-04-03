@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:ubuntu-8.5.0
+FROM twdps/circleci-base-image:ubuntu-8.8.0
 
 LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
@@ -12,17 +12,17 @@ LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing k9s admin packages" \
       org.opencontainers.image.base.name="%%BASE%%"
 
-ENV KUBECTL_VERSION=1.32.2
+ENV KUBECTL_VERSION=1.32.3
 ENV HELM_VERSION=3.17.1
 ENV AWSCLI_VERSION=1.36.17
-ENV ISTIO_VERSION=1.24.3
+ENV ISTIO_VERSION=1.25.1
 ENV BATS_VERSION=1.11.1
 ENV AWSPEC_VERSION=1.32.0
-ENV ARGOCD_VERSION=2.14.2
+ENV ARGOCD_VERSION=2.14.9
 ENV FLUX_VERSION=2.5.1
 ENV KIND_VERSION=0.27.0
 ENV CHECKOV_VERSION=3.2.378
-ENV TRIVY_VERSION=0.59.1
+ENV TRIVY_VERSION=0.61.0
 ENV CIRCLEPIPE_VERSION=0.3.2
 ENV PX_VERSION=0.8.4
 ENV DEBIAN_FRONTEND=noninteractive
@@ -48,7 +48,7 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
              bats@$BATS_VERSION && \
     sudo gem install  --no-document \
              awspec:${AWSPEC_VERSION} \
-             json:2.10.1 && \
+             json:2.10.2 && \
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \

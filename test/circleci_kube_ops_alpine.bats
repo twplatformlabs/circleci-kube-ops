@@ -37,7 +37,7 @@
 
 @test "istioctl version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.24" ]]
+  [[ "${output}" =~ "1.25" ]]
 }
 
 @test "bats version" {
@@ -72,7 +72,7 @@
 
 @test "trivy version" {
   run bash -c "docker exec circleci-kube-ops-alpine-edge trivy -v"
-  [[ "${output}" =~ "0.59" ]]
+  [[ "${output}" =~ "0.61" ]]
 }
 
 @test "circlepipe version" {

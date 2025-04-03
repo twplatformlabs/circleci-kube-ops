@@ -72,5 +72,10 @@
 
 @test "istioctl version" {
   run bash -c "docker exec circleci-kube-ops-ubuntu-edge istioctl version --remote=false"
-  [[ "${output}" =~ "1.24" ]]
+  [[ "${output}" =~ "1.25" ]]
+}
+
+@test "trivy version" {
+  run bash -c "docker exec circleci-kube-ops-ubuntu-edge trivy -v"
+  [[ "${output}" =~ "0.61" ]]
 }
