@@ -1,4 +1,4 @@
-FROM twdps/circleci-base-image:ubuntu-8.8.0
+FROM twdps/circleci-base-image:ubuntu-stable
 
 LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
@@ -12,73 +12,54 @@ LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing k9s admin packages" \
       org.opencontainers.image.base.name="%%BASE%%"
 
-ENV KUBECTL_VERSION=1.32.3
-ENV HELM_VERSION=3.17.1
+# awscli has to be pinned because the checkov package does not support more recent versions
 ENV AWSCLI_VERSION=1.36.17
-ENV ISTIO_VERSION=1.25.1
-ENV BATS_VERSION=1.11.1
-ENV AWSPEC_VERSION=1.32.0
-ENV ARGOCD_VERSION=2.14.9
-ENV FLUX_VERSION=2.5.1
-ENV KIND_VERSION=0.27.0
-ENV CHECKOV_VERSION=3.2.378
-ENV TRIVY_VERSION=0.61.0
-ENV CIRCLEPIPE_VERSION=0.3.2
-ENV PX_VERSION=0.8.4
 ENV DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 # hadolint ignore=DL3004
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
-                 nodejs=20.16.0+dfsg-1ubuntu1 \
-                 npm=9.2.0~ds1-3 \
-                 ruby-full=1:3.3~ubuntu3 \
-                 python3-dev=3.12.6-0ubuntu1 \
+                 nodejs \
+                 npm \
+                 ruby-full \
+                 python3-dev \
                  python3-pip \
-                 python3-venv=3.12.6-0ubuntu1 && \
+                 python3-venv && \
     sudo ln -f -s /usr/bin/pip3 /usr/bin/pip && \
     sudo ln -f -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo ln -f -s /usr/bin/python3 /usr/bin/python && \
     sudo ln -f -s /usr/bin/python3-config /usr/bin/python-config && \
     sudo pip install --no-cache-dir --break-system-packages --ignore-installed \
-             checkov==${CHECKOV_VERSION} \
-             awscli==${AWSCLI_VERSION} && \
-    sudo npm install -g \
-             bats@$BATS_VERSION && \
+             awscli==${AWSCLI_VERSION} \
+             checkov && \
+    sudo npm install -g bats && \
     sudo gem install  --no-document \
-             awspec:${AWSPEC_VERSION} \
-             json:2.10.2 && \
-    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v${KIND_VERSION}/kind-linux-amd64 && \
+             awspec \
+             json && \
+    download_url=$(curl -s "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r ".assets[] | select(.name == \"kind-linux-amd64\") | .browser_download_url") && \
+    curl -Lo ./kind "${download_url}" && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \
-    curl -SLO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
-    sudo chmod +x ./kubectl  && \
-    sudo mv ./kubectl /usr/local/bin/kubectl && \
-    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
-    sudo cp istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
-    rm -rf istio-${ISTIO_VERSION} && \
-    curl -SLO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    sudo tar -xf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    sudo mv linux-amd64/helm /usr/local/bin && \
-    sudo rm -rf linux-amd64/ && \
-    sudo rm "helm-v${HELM_VERSION}-linux-amd64.tar.gz" && \
-    curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 && \
-    chmod +x argocd && \
-    sudo mv ./argocd /usr/local/bin/argocd && \
-    curl -o px "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64" && \
-    curl -o px_checksum "https://storage.googleapis.com/pixie-dev-public/cli/${PX_VERSION}/cli_linux_amd64.sha256" && \
-    cat px_checksum && sha256sum px && \
-    sudo chmod +x px && \
-    sudo mv px /usr/local/bin && \
-    sudo rm px_checksum && \
-    sudo bash -c "curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=${FLUX_VERSION} bash" && \
-    curl -SLO https://github.com/twplatformlabs/circlepipe/releases/download/${CIRCLEPIPE_VERSION}/circlepipe_Linux_amd64.tar.gz && \
+    sudo bash -c "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && \
+    current_version=$(curl -s https://api.github.com/repos/istio/istio/releases/latest | jq -r '.tag_name') && \
+    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${current_version} sh - && \
+    sudo cp istio-${current_version}/bin/istioctl /usr/local/bin/istioctl && \
+    rm -rf istio-${current_version} && \
+    sudo apk add --no-cache openssl && \
+    sudo bash -c "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash" && \
+    curl -o px https://storage.googleapis.com/pixie-dev-public/cli/latest/cli_linux_amd64 && \
+    chmod +x px && sudo mv px /usr/local/bin/px && \
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && \
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd && \
+    rm argocd-linux-amd64 && \
+    sudo bash -c "curl -s https://fluxcd.io/install.sh | bash" && \
+    download_url=$(curl -s "https://api.github.com/repos/twplatformlabs/circlepipe/releases/latest" | jq -r ".assets[] | select(.name == \"circlepipe_Linux_amd64.tar.gz\") | .browser_download_url") && \
+    curl -LO "${download_url}" && \
     mkdir ./circlepipe && tar -xzf circlepipe_Linux_amd64.tar.gz -C ./circlepipe && \
     sudo mv ./circlepipe/circlepipe /usr/local/bin/circlepipe && \
     sudo rm -rf ./circlepipe circlepipe_Linux_amd64.tar.gz && \
-    curl -LO https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz && \
-    tar xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz trivy && \
-    sudo mv trivy /usr/local/bin && rm trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz
+    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
 
 USER circleci
