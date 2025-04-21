@@ -46,8 +46,8 @@
 }
 
 @test "awspec version" {
-  run bash -c "docker exec container-test awspec help"
-  [[ "${output}" =~ "Commands:" ]]
+  run bash -c "docker exec container-test awspec --help"
+  [[ "${output}" =~ "awspec generate" ]]
 }
 
 @test "argocd version" {
