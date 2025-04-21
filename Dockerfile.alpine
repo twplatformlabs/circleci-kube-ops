@@ -38,7 +38,7 @@ RUN sudo apk add --no-cache \
     sudo ln -s /usr/bin/pydoc3 /usr/bin/pydoc && \
     sudo pip install \
              checkov \
-             awscli==${AWSCLI_VERSION} && \
+             awscli=="${AWSCLI_VERSION}" && \
     download_url=$(curl -s "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r ".assets[] | select(.name == \"kind-linux-amd64\") | .browser_download_url") && \
     curl -Lo ./kind "${download_url}" && \
     sudo chmod +x ./kind && \
@@ -46,9 +46,9 @@ RUN sudo apk add --no-cache \
     sudo bash -c "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && \
     current_version=$(curl -s https://api.github.com/repos/istio/istio/releases/latest | jq -r '.tag_name') && \
-    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${current_version} sh - && \
-    sudo cp istio-${current_version}/bin/istioctl /usr/local/bin/istioctl && \
-    rm -rf istio-${current_version} && \
+    curl -L https://istio.io/downloadIstio | ISTIO_VERSION="${current_version}" sh - && \
+    sudo cp "istio-${current_version}/bin/istioctl" /usr/local/bin/istioctl && \
+    rm -rf "istio-${current_version}" && \
     sudo apk add --no-cache openssl && \
     sudo bash -c "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash" && \
     curl -o px https://storage.googleapis.com/pixie-dev-public/cli/latest/cli_linux_amd64 && \
