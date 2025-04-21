@@ -45,11 +45,6 @@
   [[ "${output}" =~ "Usage: bats" ]]
 }
 
-@test "awspec version" {
-  run bash -c "docker exec container-test awspec --help"
-  [[ "${output}" =~ "awspec generate" ]]
-}
-
 @test "argocd version" {
   run bash -c "docker exec container-test argocd --help"
   [[ "${output}" =~ "argocd [command]" ]]

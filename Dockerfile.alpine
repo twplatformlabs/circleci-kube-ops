@@ -32,6 +32,7 @@ RUN sudo apk add --no-cache \
     sudo npm install -g bats && \
     sudo gem install --no-document \
              awspec \
+             nokogiri \
              json && \
     sudo rm /usr/lib/python*/EXTERNALLY-MANAGED && \
     if [ ! -e /usr/bin/pip ]; then sudo ln -s /usr/bin/pip3 /usr/bin/pip ; fi && \
