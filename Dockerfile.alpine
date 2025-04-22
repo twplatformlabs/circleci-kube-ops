@@ -17,6 +17,8 @@ ENV AWSCLI_VERSION=1.36.17
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
+# Configured for automatic, monthly build using current package repository release versions.
+# Pin downstream executor builds to specific OS and package versions using YYYY.MM tag.
 # hadolint ignore=DL3004
 RUN sudo apk add --no-cache \
              nodejs-current \
@@ -66,3 +68,5 @@ RUN sudo apk add --no-cache \
     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
 
 USER circleci
+
+WORKDIR /home/circleci/project
