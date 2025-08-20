@@ -8,6 +8,11 @@
 </div>
 <br />
 
+# NOTE: This executor is deprecated. Use one of the cloud specific kubernetes ops executors below. The automated build for this executor will continue till the end of 2025 and the image will continue to be available, but will not receive further enhacenments or evolution.
+
+- twdps/circleci-eks-ops
+- twdps/circleci-gke-ops
+
 Common tools and packages used in pipelines managing kubernetes. Works in conjunction with the [twdps/kube-ops](https://github.com/twplatformlabs/orb-kube-ops) orb.  
 
 Packages included on kube-ops executor, but can override version with orb commands:  
